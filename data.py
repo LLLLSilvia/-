@@ -258,7 +258,18 @@ np.savetxt('F:/Facebook/1.csv', new_train, fmt='%s', delimiter=',')
 '''
 
 #print(train[:, 13:14])
-
+################################################################################################
+all_files=['0385ba42', '05a1ddaf', '19b5c196' ,'25c17efe', '3813d557' ,'5d955804' ,'98eb6753'  ,'befdbef1' ,'d55fdd84']
+df1 = pd.read_csv('F:/Facebook/CCafterStep1/0385ba42_0385ba42.csv', delimiter=',',header=None, index_col=False)
+df1 .columns = ["timestamp",'0385ba42_0385ba42' ]
+df1 .set_index(["timestamp"], inplace=True)
+for src in all_files:
+    for dst in all_files:
+        train = pd.read_csv('F:/Facebook/CCafterStep1/'+src+'_' + dst+'.csv', delimiter=',',header=None, index_col=False)
+        train.columns = ["timestamp",src+'_' + dst]
+        train.set_index(["timestamp"], inplace=True)
+        df1 = pd.concat([train, df1], axis=1, join='outer')
+df1 .to_csv('F:/Facebook/final.csv')
 
 
 
